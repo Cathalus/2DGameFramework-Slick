@@ -1,4 +1,5 @@
 <resources>
-
+    <basedir path="Platformer/res/" />
+    <image key="black_mage" file="characters/black-mage.png"/>
 
 </resources>

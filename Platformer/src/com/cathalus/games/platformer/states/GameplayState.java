@@ -26,13 +26,6 @@ public class GameplayState extends SceneBasedState {
 
     @Override
     public void init(GameContainer container, StateBasedGame stateBasedGame) throws SlickException {
-        try {
-            ResourceManager.loadResources(new BufferedInputStream(new FileInputStream("Platformer/res/resources.xml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
         // Go to default scene
         scenes.put("GameplayIntroduction", new GameplayIntroductionScene(this, container.getWidth(), container.getHeight(), 1));
         scenes.put("Gameplay",new GameplayScene(this,container.getWidth(),container.getHeight(),10));

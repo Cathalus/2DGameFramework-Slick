@@ -63,6 +63,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="Slick2DFramework" />
     <orderEntry type="module" module-name="Framework" />
+    <orderEntry type="module" module-name="Framework" />
   </component>
 </module>
 

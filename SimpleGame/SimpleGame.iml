@@ -62,6 +62,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="Framework" />
+    <orderEntry type="module" module-name="Framework" />
   </component>
 </module>
 
