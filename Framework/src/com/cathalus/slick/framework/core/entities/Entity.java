@@ -8,9 +8,6 @@ import org.newdawn.slick.geom.Vector2f;
 
 import java.util.ArrayList;
 
-/**
- * Created by cathalus on 06.09.14.
- */
 public class Entity {
 
     private ArrayList<EntityComponent> components;
@@ -19,6 +16,10 @@ public class Entity {
     private float dX = 0.0f, dY = 0.0f;
     private AABB aabb;
 
+    /**
+     * Default constructor. Takes in an AABB and initializes variables
+     * @param aabb AABB
+     */
     public Entity(AABB aabb)
     {
         System.out.println(aabb.toString());
@@ -26,15 +27,26 @@ public class Entity {
         this.aabb = aabb;
         this.x = aabb.getCenterX();
         this.y = aabb.getCenterY();
-        System.out.println("Created "+aabb.toString());
     }
 
+    /**
+     * Takes in a position, width and hide to initialize the entity
+     * @param pos Position of the entity
+     * @param width Width of the entity
+     * @param height Height of the entity
+     */
     public Entity(Vector2f pos, float width, float height)
     {
         this(new AABB(pos.getX(), -(pos.getY()-height), pos.getX()+width, -pos.getY()));
     }
 
-
+    /**
+     * Adds a component to the entity.
+     * Calls the component's onAdd() method and sets the Component's entity.
+     * Returns the current entity
+     * @param component
+     * @return Entity
+     */
     public Entity addComponent(EntityComponent component)
     {
         component.setEntity(this);
@@ -43,6 +55,9 @@ public class Entity {
         return this;
     }
 
+    /**
+     * Adds the positional delta values to the AABB.
+     */
     public void updateAABB()
     {
         float minX = aabb.getMinX() + dX;
@@ -53,6 +68,12 @@ public class Entity {
         aabb = new AABB(minX, minY, maxX, maxY);
     }
 
+    /**
+     * Looks for a given component by identifier and returns it.
+     * Returns null if the component wasn't found
+     * @param identifier Name of the component
+     * @return Component
+     */
     public EntityComponent getComponent(String identifier)
     {
         for(EntityComponent component : components)
@@ -65,17 +86,27 @@ public class Entity {
         return null;
     }
 
+    /**
+     * Updates the entity and all of it's components
+     * @param delta float delta time
+     * @param container GameContainer
+     */
     public void update(float delta, GameContainer container)
     {
         x = aabb.getCenterX();
         y = aabb.getCenterY();
 
+        // TODO: let systems update components (later)
         for(EntityComponent component : components)
         {
             component.update(delta,container);
         }
     }
 
+    /**
+     * Render's all of the renderable components
+     * @param graphics Graphics object
+     */
     public void render(Graphics graphics)
     {
         for(EntityComponent component : components)
