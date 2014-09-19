@@ -22,7 +22,6 @@ public class Entity {
      */
     public Entity(AABB aabb)
     {
-        System.out.println(aabb.toString());
         this.components = new ArrayList<EntityComponent>();
         this.aabb = aabb;
         this.x = aabb.getCenterX();
@@ -37,7 +36,7 @@ public class Entity {
      */
     public Entity(Vector2f pos, float width, float height)
     {
-        this(new AABB(pos.getX(), -(pos.getY()-height), pos.getX()+width, -pos.getY()));
+        this(new AABB(pos.getX(), -(pos.getY()+height), pos.getX()+width, -pos.getY()));
     }
 
     /**
@@ -84,6 +83,18 @@ public class Entity {
             }
         }
         return null;
+    }
+
+    public boolean hasComponent(String identifier)
+    {
+        for(EntityComponent component : components)
+        {
+            if(component.getIdentifier().equals(identifier))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

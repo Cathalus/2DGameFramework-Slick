@@ -2,6 +2,7 @@ package com.cathalus.slick.framework.core;
 
 import com.cathalus.slick.framework.core.entities.Entity;
 import com.cathalus.slick.framework.core.entities.systems.GameSystem;
+import com.cathalus.slick.framework.core.graphics.Camera2D;
 import com.cathalus.slick.framework.core.math.AABB;
 import com.cathalus.slick.framework.core.math.QuadTree;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
@@ -20,6 +21,7 @@ public abstract class Scene {
     protected QuadTree tree;
     protected ArrayList<GameSystem> gameSystems = new ArrayList<GameSystem>();
     protected SceneBasedState state;
+    protected Camera2D camera;
 
     public Scene(SceneBasedState state, int windowWidth, int windowHeight, int childrenPerNode)
     {
@@ -41,4 +43,14 @@ public abstract class Scene {
 
     public abstract void update(GameContainer container, float delta);
     public abstract void render(Graphics graphics);
+
+    public QuadTree getTree()
+    {
+        return tree;
+    }
+
+    public Camera2D getActiveCamera()
+    {
+        return camera;
+    }
 }

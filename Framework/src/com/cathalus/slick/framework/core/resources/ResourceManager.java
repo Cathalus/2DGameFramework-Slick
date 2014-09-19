@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class ResourceManager {
 
+    public static enum ResourceType{ IMAGE, SPRITESHEET, FONT, ANIMATION, MUSIC, SOUND, TILEDMAP };
+
     private static final Map<String, Image>         images      = new HashMap<String, Image>();
     private static final Map<String, SpriteSheet>   spriteSheets= new HashMap<String, SpriteSheet>();
     private static final Map<String, Font>          fonts       = new HashMap<String, Font>();
@@ -29,7 +31,7 @@ public class ResourceManager {
 
     public static void addImage(String key, Image value)
     {
-        if(!hasObject(key,images))
+        if(!hasResource(key, images))
         {
             images.put(key,value);
         }
@@ -37,7 +39,7 @@ public class ResourceManager {
 
     public static void addSpriteSheet(String key, SpriteSheet value)
     {
-        if(!hasObject(key,spriteSheets))
+        if(!hasResource(key, spriteSheets))
         {
             spriteSheets.put(key,value);
         }
@@ -45,7 +47,7 @@ public class ResourceManager {
 
     public static void addFont(String key, Font value)
     {
-        if(!hasObject(key,fonts))
+        if(!hasResource(key, fonts))
         {
             fonts.put(key,value);
         }
@@ -53,7 +55,7 @@ public class ResourceManager {
 
     public static void addAnimation(String key, Animation value)
     {
-        if(!hasObject(key,animations))
+        if(!hasResource(key, animations))
         {
             animations.put(key,value);
         }
@@ -61,7 +63,7 @@ public class ResourceManager {
 
     public static void addMusic(String key, Music value)
     {
-        if(!hasObject(key,music))
+        if(!hasResource(key, music))
         {
             music.put(key,value);
         }
@@ -69,7 +71,7 @@ public class ResourceManager {
 
     public static void addSound(String key, Sound value)
     {
-        if(!hasObject(key,sounds))
+        if(!hasResource(key, sounds))
         {
             sounds.put(key,value);
         }
@@ -77,16 +79,39 @@ public class ResourceManager {
 
     public static void addTiledMap(String key, TiledMap value)
     {
-        if(!hasObject(key,tiledMaps))
+        if(!hasResource(key, tiledMaps))
         {
             tiledMaps.put(key,value);
         }
     }
 
 
-    public static boolean hasObject(String key, Map map)
+    private static boolean hasResource(String key, Map map)
     {
         return map.containsKey(key);
+    }
+
+    public static boolean hasResource(String key, ResourceType type)
+    {
+        switch (type)
+        {
+            case IMAGE:
+                return hasResource(key, images);
+            case SPRITESHEET:
+                return hasResource(key, spriteSheets);
+            case FONT:
+                return hasResource(key, fonts);
+            case ANIMATION:
+                return hasResource(key, animations);
+            case MUSIC:
+                return hasResource(key, music);
+            case SOUND:
+                return hasResource(key, sounds);
+            case TILEDMAP:
+                return hasResource(key, tiledMaps);
+            default:
+                return false;
+        }
     }
 
     public static Image getImage(String key) {
@@ -95,4 +120,54 @@ public class ResourceManager {
             throw new IllegalArgumentException("There was no image found for key " + key + " " + images.keySet());
         return image;
     }
+
+    public static SpriteSheet getSpriteSheet(String key)
+    {
+        SpriteSheet spriteSheet = spriteSheets.get(key);
+        if(spriteSheet == null)
+            throw new IllegalArgumentException("There was no SpriteSheet found for key " + key + " " + spriteSheets.keySet());
+        return spriteSheet;
+    }
+
+    public static Font getFont(String key)
+    {
+        Font font = fonts.get(key);
+        if(font == null)
+            throw new IllegalArgumentException("There was no Font found for key " + key + " " + fonts.keySet());
+        return font;
+    }
+
+    public static Animation getAnimation(String key)
+    {
+        Animation animation = animations.get(key);
+        if(animation == null)
+            throw new IllegalArgumentException("There was no Animation found for key " + key + " " + animations.keySet());
+        return animation;
+    }
+
+    public static Music getMusic(String key)
+    {
+        Music mus = music.get(key);
+        if(mus == null)
+            throw new IllegalArgumentException("There was no Music found for key " + key + " " + music.keySet());
+        return mus;
+    }
+
+    public static Sound getSound(String key)
+    {
+        Sound sound = sounds.get(key);
+        if(sound == null)
+            throw new IllegalArgumentException("There was no Sound found for key " + key + " " + sounds.keySet());
+        return sound;
+    }
+
+    public static TiledMap getTiledMap(String key)
+    {
+        TiledMap map = tiledMaps.get(key);
+        if(map == null)
+            throw new IllegalArgumentException("There was no TiledMap found for key " + key + " " + tiledMaps.keySet());
+        return map;
+    }
+
+
 }

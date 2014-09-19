@@ -25,14 +25,13 @@ public class PlatformerGame extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        getState(States.GAMEPLAY).init(container,this);
-
         try {
             ResourceManager.loadResources(new BufferedInputStream(new FileInputStream("./Platformer/res/resources.xml")));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
+        getState(States.GAMEPLAY).init(container,this);
     }
 
     public static void main(String[] args)
@@ -42,7 +41,7 @@ public class PlatformerGame extends StateBasedGame {
             container.setDisplayMode(1280,720,false);
             container.setAlwaysRender(true);
             container.setShowFPS(true);
-//            container.setTargetFrameRate(60);
+            container.setTargetFrameRate(60);
             container.setMinimumLogicUpdateInterval(1000 / 60);
             container.start();
         }catch(SlickException ex)

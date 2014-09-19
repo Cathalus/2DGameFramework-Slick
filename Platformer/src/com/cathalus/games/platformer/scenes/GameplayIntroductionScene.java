@@ -23,6 +23,7 @@ public class GameplayIntroductionScene extends Scene {
         {
             state.transitionTo("Gameplay");
         }
+        state.transitionTo("Gameplay");
     }
 
     @Override

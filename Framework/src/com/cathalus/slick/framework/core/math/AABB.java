@@ -28,6 +28,22 @@ public class AABB {
         return this.minX < maxX && this.maxX > minX && this.minY < maxY && this.maxY > minY;
     }
 
+    public AABB expand(float size)
+    {
+        return new AABB(minX-Math.abs(size),minY-Math.abs(size),maxX+Math.abs(size),maxY+Math.abs(size));
+    }
+
+    public AABB expandX(float size)
+    {
+        return new AABB(minX-Math.abs(size),minY,maxX+Math.abs(size),maxY);
+    }
+
+    public AABB expandY(float size)
+    {
+        return new AABB(minX,minY-Math.abs(size),maxX,maxY+Math.abs(size));
+    }
+
+
     public float getMinX() {
         return minX;
     }
@@ -57,6 +73,16 @@ public class AABB {
     public Vector2f getCenter()
     {
         return new Vector2f(getCenterX(),getCenterY());
+    }
+
+    public float getDistanceX(AABB other)
+    {
+        return this.getCenterX()-other.getCenterX();
+    }
+
+    public float getDistanceY(AABB other)
+    {
+        return this.getCenterY()-other.getCenterY();
     }
 
     @Override

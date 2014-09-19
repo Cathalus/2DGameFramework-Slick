@@ -44,7 +44,7 @@ public class GameplayState extends SceneBasedState {
     public void update(GameContainer container, StateBasedGame stateBasedGame, int i) throws SlickException {
         if(current != null)
         {
-            current.update(container,i);
+            current.update(container,(float) i/1000);
         }
     }
 }

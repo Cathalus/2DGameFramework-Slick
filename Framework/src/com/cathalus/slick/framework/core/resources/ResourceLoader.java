@@ -1,9 +1,6 @@
 package com.cathalus.slick.framework.core.resources;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
+import org.newdawn.slick.*;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.Log;
 import org.w3c.dom.Document;
@@ -14,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.StringTokenizer;
 
 /**
  * Loads resources by parsing a XML file specifying them
@@ -86,15 +84,58 @@ public class ResourceLoader {
     }
 
     private void loadAnimation(Element element) {
+        checkRequiredAttributes(element,"key","sheetName","frameDuration","frames","flipVertical","flipHorizontal","loop");
+        String key = element.getAttribute("key");
+        String sheet = element.getAttribute("sheetName");
+        int frameDuration = Integer.parseInt(element.getAttribute("frameDuration"));
+        int row = 0;
 
+        // Loading spriteSheet
+        if(!ResourceManager.hasResource(sheet, ResourceManager.ResourceType.SPRITESHEET))
+        {
+            throw new IllegalArgumentException("Spritesheet "+sheet+" for Animation "+key+" has not been loaded!");
+        }
+        SpriteSheet spriteSheet = ResourceManager.getSpriteSheet(sheet);
+
+        // Reading Frames
+        StringTokenizer tokenizer = new StringTokenizer(element.getAttribute("frames"), ",");
+
+        int frames[] = new int[tokenizer.countTokens()];
+        for (int i = 0; tokenizer.hasMoreTokens(); i++) {
+            int token = Integer.parseInt(tokenizer.nextToken().trim());
+            frames[i] = token;
+        }
+
+        boolean flipVertical = Boolean.parseBoolean(element.getAttribute("flipVertical"));
+        boolean flipHorizontal = Boolean.parseBoolean(element.getAttribute("flipHorizontal"));
+        boolean loop = Boolean.parseBoolean(element.getAttribute("loop"));
+
+        Animation animation = new Animation(false);
+        for (int frameIndex : frames) {
+            Image img = spriteSheet.getSubImage(frameIndex, row);
+
+            if (flipHorizontal || flipVertical) {
+                img = img.getFlippedCopy(flipHorizontal, flipVertical);
+            }
+            animation.addFrame(img, frameDuration);
+        }
+        animation.setLooping(loop);
+
+        ResourceManager.addAnimation(key,animation);
     }
 
     private void loadUnicodeFont(Element element) {
 
     }
 
-    private void loadSpriteSheet(Element element) {
+    private void loadSpriteSheet(Element element) throws SlickException {
+        checkRequiredAttributes(element, "key", "file", "width", "height");
+        String key = element.getAttribute("key");
+        String file = element.getAttribute("file");
+        int width = Integer.parseInt(element.getAttribute("width"));
+        int height = Integer.parseInt(element.getAttribute("height"));
 
+        ResourceManager.addSpriteSheet(key, new SpriteSheet(baseDir+file, width, height));
     }
 
     private void loadImage(Element element) throws SlickException{
