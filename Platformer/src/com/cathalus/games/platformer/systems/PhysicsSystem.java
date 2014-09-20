@@ -48,7 +48,7 @@ public class PhysicsSystem extends GameSystem {
 
     private void checkForCollisions(Entity current, Vector2f deltaMovement) {
 
-        float threshold = 7f;
+        float threshold = 2f;
         Vector2f deltaVec = new Vector2f(deltaMovement.getX(),deltaMovement.getY()).scale(threshold);
 
         int maxVelocity = Math.max((int) (deltaVec.getX()),(int) (deltaVec.getY()));
@@ -57,46 +57,57 @@ public class PhysicsSystem extends GameSystem {
 
         boolean collision = false;
         // When Collision has occured
-        while(iterator.hasNext())
+
+        // Resolve y collision
+        entities = scene.getTree().queryRange(current.getAABB().expandY(deltaVec.getY()), new HashSet<Entity>());
+        Iterator it = entities.iterator();
+        if (it.hasNext()) {
+            Entity other = (Entity) it.next();
+            if (other.hasComponent(PhysicsComponent.NAME)) {
+                if (((PhysicsComponent) other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
+                    // Remove velocity when touching wall and pushing against it
+                    if (current.getAABB().getDistanceY(other.getAABB()) < 0 && deltaVec.getY() > 0) {
+                        deltaMovement.set(deltaMovement.getX(), 0);
+                    } else if (current.getAABB().getDistanceY(other.getAABB()) > 0 && deltaMovement.getY() < 0) {
+                        deltaMovement.set(deltaMovement.getX(), 0);
+                    }
+                }
+            }
+        }
+
+        // Resolve x collision
+        entities = scene.getTree().queryRange(current.getAABB().expandX(deltaMovement.getX()), new HashSet<Entity>());
+        it = entities.iterator();
+        // Collision on X
+        if (it.hasNext()) {
+            Entity other = (Entity) it.next();
+            if(other.hasComponent(PhysicsComponent.NAME)) {
+                if (((PhysicsComponent) other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
+                    // Remove velocity when touching wall and pushing against it
+                    if (current.getAABB().getDistanceX(other.getAABB()) < 0 && deltaMovement.getX() > 0) {
+                        deltaMovement.set(0, deltaMovement.getY());
+                    } else if (current.getAABB().getDistanceX(other.getAABB()) > 0 && deltaMovement.getX() < 0) {
+                        deltaMovement.set(0, deltaMovement.getY());
+                    }
+                }
+            }
+        }
+
+
+
+        /*while(iterator.hasNext())
         {
             Entity other = (Entity) iterator.next();
             if(other.hasComponent(PhysicsComponent.NAME)) {
                 if(((PhysicsComponent)other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
-                    // Resolve y collision
-                    entities = scene.getTree().queryRange(current.getAABB().expandY(deltaVec.getY()), new HashSet<Entity>());
-                    Iterator it = entities.iterator();
-                    if (it.hasNext()) {
-                        // Remove velocity when touching wall and pushing against it
-                        if(current.getAABB().getDistanceY(other.getAABB()) < 0 && deltaVec.getY() > 0)
-                        {
-                            deltaMovement.set(deltaMovement.getX(), 0);
-                        }else if(current.getAABB().getDistanceY(other.getAABB()) > 0 && deltaMovement.getY() < 0)
-                        {
-                            deltaMovement.set(deltaMovement.getX(), 0);
-                        }
-                    }
 
-                    // Resolve x collision
-                    entities = scene.getTree().queryRange(current.getAABB().expandX(deltaMovement.getX()), new HashSet<Entity>());
-                    it = entities.iterator();
-                    // Collision on X
-                    if (it.hasNext()) {
-                        // Remove velocity when touching wall and pushing against it
-                        if(current.getAABB().getDistanceX(other.getAABB()) < 0 && deltaMovement.getX() > 0)
-                        {
-                            deltaMovement.set(0, deltaMovement.getY());
-                        }else if(current.getAABB().getDistanceX(other.getAABB()) > 0 && deltaMovement.getX() < 0)
-                        {
-                            deltaMovement.set(0, deltaMovement.getY());
-                        }
-                    }
 
                     //current.setDeltaX(deltaMovement.getX());
                     //current.setDeltaY(deltaMovement.getY());
                     //current.updateAABB();
                 }
             }
-        }
+        }*/
 
         current.setDeltaX(deltaMovement.getX());
         current.setDeltaY(deltaMovement.getY());
