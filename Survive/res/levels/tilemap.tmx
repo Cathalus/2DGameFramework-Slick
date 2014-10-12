@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tilesheet" tilewidth="32" tileheight="32">
+  <image source="../tilesets/tilesheet.png" width="640" height="1024"/>
+  <tile id="336">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="337">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="first" width="20" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIB4EMjIwBDEiaEpBKtCMNEYETSlAdx+l7kR3H6XuRHcPpe5Edw82d2ILD0I0PoAtPAjRo2BwAmrk4VEwsgEAqRxtp0AGAAA=
+  </data>
+ </layer>
+</map>

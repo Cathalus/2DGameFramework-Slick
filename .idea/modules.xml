@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Framework/Framework.iml" filepath="$PROJECT_DIR$/Framework/Framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Platformer/Platformer.iml" filepath="$PROJECT_DIR$/Platformer/Platformer.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleGame/SimpleGame.iml" filepath="$PROJECT_DIR$/SimpleGame/SimpleGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Survive/Survive.iml" filepath="$PROJECT_DIR$/Survive/Survive.iml" />
     </modules>
   </component>
 </project>

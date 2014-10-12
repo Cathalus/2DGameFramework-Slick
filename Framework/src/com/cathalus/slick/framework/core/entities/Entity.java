@@ -5,8 +5,10 @@ import com.cathalus.slick.framework.core.math.AABB;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Entity {
 
@@ -99,10 +101,10 @@ public class Entity {
 
     /**
      * Updates the entity and all of it's components
-     * @param delta float delta time
      * @param container GameContainer
+     * @param delta float delta time
      */
-    public void update(float delta, GameContainer container)
+    public void update(GameContainer container, float delta)
     {
         x = aabb.getCenterX();
         y = aabb.getCenterY();
@@ -110,7 +112,7 @@ public class Entity {
         // TODO: let systems update components (later)
         for(EntityComponent component : components)
         {
-            component.update(delta,container);
+            component.update(container,delta);
         }
     }
 
@@ -129,6 +131,10 @@ public class Entity {
 
     public void setDeltaX(float value) { dX = value; }
     public void setDeltaY(float value) { dY = value; }
+    public void setDelta(Vector2f delta) {
+        dX = delta.getX();
+        dY = delta.getY();
+    }
 
     public boolean hasMoved() { return dX != 0.0f || dY != 0.0f; }
 

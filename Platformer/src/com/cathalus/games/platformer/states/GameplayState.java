@@ -3,16 +3,11 @@ package com.cathalus.games.platformer.states;
 import com.cathalus.games.platformer.scenes.GameplayIntroductionScene;
 import com.cathalus.games.platformer.scenes.GameplayScene;
 import com.cathalus.games.platformer.util.States;
-import com.cathalus.slick.framework.core.resources.ResourceManager;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * Created by cathalus on 17.09.14.

@@ -15,7 +15,7 @@ public class PhysicsComponent extends EntityComponent implements Collidable {
     }
 
     @Override
-    public void update(float delta, GameContainer container) {
+    public void update(GameContainer container, float delta) {
 
     }
 

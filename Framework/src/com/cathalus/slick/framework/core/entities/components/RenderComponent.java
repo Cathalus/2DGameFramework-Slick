@@ -23,8 +23,9 @@ public class RenderComponent extends EntityComponent implements Renderable {
         this.sprite = sprite;
     }
 
+
     @Override
-    public void update(float delta, GameContainer container) {
+    public void update(GameContainer container, float delta) {
 
     }
 

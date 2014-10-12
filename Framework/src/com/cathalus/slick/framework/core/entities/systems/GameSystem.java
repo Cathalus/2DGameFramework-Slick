@@ -1,8 +1,11 @@
 package com.cathalus.slick.framework.core.entities.systems;
 
 import com.cathalus.slick.framework.core.Scene;
+import com.cathalus.slick.framework.core.entities.Entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+
+import java.util.HashSet;
 
 /**
  * Created by cathalus on 17.09.14.
@@ -14,9 +17,9 @@ public abstract class GameSystem implements Comparable<GameSystem> {
     protected int priority = 0;
     protected Scene scene;
 
-    public GameSystem(Scene scene, String identifier){ this.identifier = identifier; this.scene = scene; }
-    public abstract void update(float delta,GameContainer container);
-    public abstract void render(Graphics graphics);
+    public GameSystem(Scene scene, String identifier, int priority){ this.identifier = identifier; this.scene = scene; this.priority = priority; }
+    public abstract void update(GameContainer container, HashSet<Entity> range, float delta);
+    public abstract void render(Graphics graphics, HashSet<Entity> range);
 
     public String getIdentifier() {
         return identifier;

@@ -8,7 +8,6 @@ import com.cathalus.slick.framework.core.entities.systems.GameSystem;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.Log;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -48,18 +47,14 @@ public class PhysicsSystem extends GameSystem {
 
     private void checkForCollisions(Entity current, Vector2f deltaMovement) {
 
-        float threshold = 2f;
+        float threshold = 1f;
         Vector2f deltaVec = new Vector2f(deltaMovement.getX(),deltaMovement.getY()).scale(threshold);
 
-        int maxVelocity = Math.max((int) (deltaVec.getX()),(int) (deltaVec.getY()));
-        Set<Entity> entities = scene.getTree().queryRange(current.getAABB().expand(Math.max(maxVelocity,threshold)), new HashSet<Entity>());
-        Iterator<Entity> iterator = entities.iterator();
-
-        boolean collision = false;
-        // When Collision has occured
+        int maxVelocity = Math.max((int) (deltaVec.getX()), (int) (deltaVec.getY()));
+        Set<Entity> entities;
 
         // Resolve y collision
-        entities = scene.getTree().queryRange(current.getAABB().expandY(deltaVec.getY()), new HashSet<Entity>());
+        entities = scene.getTree().queryRange(current.getAABB().expandY(deltaMovement.getY()), new HashSet<Entity>());
         Iterator it = entities.iterator();
         if (it.hasNext()) {
             Entity other = (Entity) it.next();
@@ -81,7 +76,7 @@ public class PhysicsSystem extends GameSystem {
         // Collision on X
         if (it.hasNext()) {
             Entity other = (Entity) it.next();
-            if(other.hasComponent(PhysicsComponent.NAME)) {
+            if (other.hasComponent(PhysicsComponent.NAME)) {
                 if (((PhysicsComponent) other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
                     // Remove velocity when touching wall and pushing against it
                     if (current.getAABB().getDistanceX(other.getAABB()) < 0 && deltaMovement.getX() > 0) {
@@ -92,23 +87,6 @@ public class PhysicsSystem extends GameSystem {
                 }
             }
         }
-
-
-
-        /*while(iterator.hasNext())
-        {
-            Entity other = (Entity) iterator.next();
-            if(other.hasComponent(PhysicsComponent.NAME)) {
-                if(((PhysicsComponent)other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
-
-
-                    //current.setDeltaX(deltaMovement.getX());
-                    //current.setDeltaY(deltaMovement.getY());
-                    //current.updateAABB();
-                }
-            }
-        }*/
-
         current.setDeltaX(deltaMovement.getX());
         current.setDeltaY(deltaMovement.getY());
         current.updateAABB();

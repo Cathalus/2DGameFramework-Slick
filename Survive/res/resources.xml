@@ -1,0 +1,9 @@
+<resources>
+    <basedir path="./Survive/res/" />
+    <tiledmap key="level01" file="levels/level01.tmx"/>
+    <tiledmap key="level02" file="levels/map.tmx"/>
+    <tiledmap key="level03" file="levels/tilemap.tmx"/>
+    <sound key="laser" file="sfx/laser.ogg"/>
+    <sound key="impact" file="sfx/impact.ogg"/>
+    <sound key="blast" file="sfx/blast.ogg"/>
+</resources>

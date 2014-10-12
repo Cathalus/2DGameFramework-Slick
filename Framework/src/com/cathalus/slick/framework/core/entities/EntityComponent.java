@@ -8,18 +8,17 @@ import org.newdawn.slick.GameContainer;
 public abstract class EntityComponent {
 
     protected Entity entity;
-    protected String identifier;
+    protected String identifier = "";
 
     public EntityComponent()
     { }
 
-    public abstract void update(float delta,GameContainer container);
+    public abstract void update(GameContainer container,float delta);
     public abstract  void onAdd();
     public void setEntity(Entity entity)
     {
         this.entity = entity;
     }
-
     public String getIdentifier()
     {
         return identifier;

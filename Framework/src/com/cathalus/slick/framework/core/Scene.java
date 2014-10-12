@@ -19,13 +19,18 @@ import java.util.HashSet;
 public abstract class Scene {
 
     protected QuadTree tree;
-    protected ArrayList<GameSystem> gameSystems = new ArrayList<GameSystem>();
     protected SceneBasedState state;
     protected Camera2D camera;
 
     public Scene(SceneBasedState state, int windowWidth, int windowHeight, int childrenPerNode)
     {
         this.tree = new QuadTree(new AABB(0,-windowHeight,windowWidth,0),childrenPerNode);
+        this.state = state;
+    }
+
+    public Scene(SceneBasedState state, QuadTree tree, int windowWidth, int windowHeight)
+    {
+        this.tree = tree;
         this.state = state;
     }
 
@@ -38,17 +43,17 @@ public abstract class Scene {
         tree.remove(entity);
     }
 
-    public void addSystem(GameSystem gameSystem){ gameSystems.add(gameSystem); }
-    public void removeSystem(GameSystem gameSystem) { gameSystems.remove(gameSystem); }
-
+    public abstract void init();
     public abstract void update(GameContainer container, float delta);
     public abstract void render(Graphics graphics);
+
+    public abstract void loadResources();
+    public abstract void unloadResources();
 
     public QuadTree getTree()
     {
         return tree;
     }
-
     public Camera2D getActiveCamera()
     {
         return camera;
