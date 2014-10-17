@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaconGameJam08/BaconGameJam08.iml" filepath="$PROJECT_DIR$/BaconGameJam08/BaconGameJam08.iml" />
       <module fileurl="file://$PROJECT_DIR$/Framework/Framework.iml" filepath="$PROJECT_DIR$/Framework/Framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Platformer/Platformer.iml" filepath="$PROJECT_DIR$/Platformer/Platformer.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleGame/SimpleGame.iml" filepath="$PROJECT_DIR$/SimpleGame/SimpleGame.iml" />
