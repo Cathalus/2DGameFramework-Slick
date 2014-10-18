@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tilesheet" tilewidth="32" tileheight="32">
+  <image source="../tilesets/tilesheet.png" width="640" height="1024"/>
+  <tile id="3">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="336">
+   <properties>
+    <property name="collision" value="1"/>
+   </properties>
+  </tile>
+  <tile id="337">
+   <properties>
+    <property name="collision" value="1"/>
+   </properties>
+  </tile>
+  <tile id="376">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="377">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="384">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="398">
+   <properties>
+    <property name="trigger" value="0"/>
+   </properties>
+  </tile>
+  <tile id="399">
+   <properties>
+    <property name="trigger" value="0"/>
+   </properties>
+  </tile>
+  <tile id="458">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="459">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="478">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+  <tile id="479">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="World" width="100" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwnMBpRgaGM4wD7YpRAAP3gXHxYITERyXQn1WD1K/o+WIk5JNeoP/6Bqkf0fPFQOSTxUD7lqDZKYYHE6MfF4DlDWrlEVLMQU7rhPLBQOaT7UB7djDijwN8GKafGADLG9TKI6SYg5zWCeUDeuUTllE8qDAAYorTyKAPAAA=
+  </data>
+ </layer>
+ <layer name="Triggers" width="100" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3UwQkAIAwEwaRu7UFL1o81qGGmgoODjQCgspYRPW+v4Bj7i+kPKEtz36K5/GYBPjx4QaAPAAA=
+  </data>
+ </layer>
+ <objectgroup color="#a40606" name="Collision">
+  <object x="0" y="287" width="3346" height="33"/>
+ </objectgroup>
+</map>

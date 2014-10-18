@@ -1,4 +1,4 @@
 <resources>
     <basedir path="./BaconGameJam08/res/" />
-
+    <tiledmap key="level02" file="levels/test.tmx"/>
 </resources>
