@@ -37,7 +37,7 @@ public class GameplayState extends SceneBasedState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        quadTree = new QuadTree(new BoundingBox(0,-gameContainer.getHeight(),gameContainer.getWidth(),0),5);
+        quadTree = new QuadTree(new BoundingBox(0,-gameContainer.getHeight(),gameContainer.getWidth(),0),25);
 
         ArrayList<Entity> mapObjects = Globals.CURRENT_LEVEL.getObjects();
 
