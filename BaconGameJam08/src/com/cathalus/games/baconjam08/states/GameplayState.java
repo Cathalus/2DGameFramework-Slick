@@ -75,7 +75,7 @@ public class GameplayState extends SceneBasedState {
             Random rand = new Random();
             int point = rand.nextInt(playerSpawnPoints.size());
             player = new Player(new Vector2f(playerSpawnPoints.get(point).getX(),-playerSpawnPoints.get(point).getY()),
-                    50,50,
+                    10,25,
                     new InputComponent(InputComponent.InputMethod.MOUSE_KEYBOARD));
         }else{
             player = new Player(new Vector2f(0,0),50,50,new InputComponent(InputComponent.InputMethod.MOUSE_KEYBOARD));
@@ -107,7 +107,7 @@ public class GameplayState extends SceneBasedState {
                 for(Entity spawnPoint : enemySpawnPoints)
                 {
                     spawnPoint.addComponent(new AABBRenderComponent());
-                    spawnPoint.addComponent(new SpawnComponent(100,2+(rand.nextFloat()*1.5f),1));
+                    spawnPoint.addComponent(new SpawnComponent(100,1+(rand.nextFloat()*2.5f),1));
                     quadTree.add(spawnPoint);
                 }
             }

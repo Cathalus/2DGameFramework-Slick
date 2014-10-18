@@ -9,12 +9,11 @@ import com.cathalus.slick.framework.core.Scene;
 import com.cathalus.slick.framework.core.entities.Entity;
 import com.cathalus.slick.framework.core.entities.systems.GameSystem;
 import com.cathalus.slick.framework.core.graphics.Camera2D;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import com.cathalus.slick.framework.core.resources.ResourceManager;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.GameState;
 
 /**
  * Created by cathalus on 17.09.14.
@@ -30,7 +29,7 @@ public class GameplayScene extends Scene {
         gb = ResourceManager.getSpriteSheet("gb_walk");
         mm = ResourceManager.getSpriteSheet("mm_jump");
         anim = ResourceManager.getAnimation("gb_walk");
-        camera = new Camera2D(new AABB(0,-720,1280,0));
+        camera = new Camera2D(new BoundingBox(0,-720,1280,0));
 
         tree.add(new Entity(new Vector2f(0,0),75,75).addComponent(new GraphicsComponent()).addComponent(new MovementComponent(new Vector2f(200,200),200)));
         tree.add(new Entity(new Vector2f(400,360),200,200).addComponent(new GraphicsComponent()).addComponent(new PhysicsComponent(null, PhysicsComponent.Type.STATIC)));

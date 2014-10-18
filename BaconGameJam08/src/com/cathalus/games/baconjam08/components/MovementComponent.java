@@ -38,14 +38,6 @@ public class MovementComponent extends EntityComponent {
 
     }
 
-    public float getMovementSpeed() {
-        return movementSpeed;
-    }
-
-    public void setMovementSpeed(float movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
     public Vector2f getDeltaMovement() {
         return deltaMovement;
     }

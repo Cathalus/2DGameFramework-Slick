@@ -1,17 +1,12 @@
 package com.cathalus.slick.framework.core;
 
 import com.cathalus.slick.framework.core.entities.Entity;
-import com.cathalus.slick.framework.core.entities.systems.GameSystem;
 import com.cathalus.slick.framework.core.graphics.Camera2D;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import com.cathalus.slick.framework.core.math.QuadTree;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.state.GameState;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by cathalus on 17.09.14.
@@ -24,7 +19,7 @@ public abstract class Scene {
 
     public Scene(SceneBasedState state, int windowWidth, int windowHeight, int childrenPerNode)
     {
-        this.tree = new QuadTree(new AABB(0,-windowHeight,windowWidth,0),childrenPerNode);
+        this.tree = new QuadTree(new BoundingBox(0,-windowHeight,windowWidth,0),childrenPerNode);
         this.state = state;
     }
 

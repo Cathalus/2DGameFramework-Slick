@@ -2,13 +2,13 @@ package com.cathalus.games.platformer.entities;
 
 import com.cathalus.games.platformer.entities.components.MovementComponent;
 import com.cathalus.slick.framework.core.entities.Entity;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Player extends Entity {
 
-    public Player(AABB aabb) {
-        super(aabb);
+    public Player(BoundingBox boundingBox) {
+        super(boundingBox);
     }
 
     public Player(Vector2f pos, float width, float height) {

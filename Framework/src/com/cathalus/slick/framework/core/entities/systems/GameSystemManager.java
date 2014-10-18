@@ -51,7 +51,6 @@ public class GameSystemManager {
 
     public void update(GameContainer container, HashSet<Entity> range, float delta)
     {
-        Log.debug("#Entities: "+range.size());
         for(GameSystem system : systems)
         {
             system.update(container,range,delta);

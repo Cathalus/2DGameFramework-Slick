@@ -13,7 +13,7 @@ public class Player extends Entity {
 
     public Player(Vector2f pos, float width, float height, InputComponent inputComponent) {
         super(pos, width, height);
-        addComponent(new MovementComponent(100, 400, true));
+        addComponent(new MovementComponent(240, 400, true));
         addComponent(inputComponent);
         addComponent(new AABBRenderComponent());
     }

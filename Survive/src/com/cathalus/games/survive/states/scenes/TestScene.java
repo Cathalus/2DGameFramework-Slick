@@ -5,10 +5,9 @@ import com.cathalus.games.survive.entities.components.CameraComponent;
 import com.cathalus.games.survive.entities.systems.*;
 import com.cathalus.slick.framework.core.Scene;
 import com.cathalus.slick.framework.core.entities.Entity;
-import com.cathalus.slick.framework.core.entities.systems.GameSystem;
 import com.cathalus.slick.framework.core.entities.systems.GameSystemManager;
 import com.cathalus.slick.framework.core.graphics.Camera2D;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import com.cathalus.slick.framework.core.math.QuadTree;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
 import org.newdawn.slick.GameContainer;
@@ -37,7 +36,7 @@ public class TestScene extends Scene {
 
     @Override
     public void init() {
-        camera = new Camera2D(new AABB(0,-height,width,0));
+        camera = new Camera2D(new BoundingBox(0,-height,width,0));
         camera.addComponent(new CameraComponent());
 
         movementSystem = new MovementSystem(this, "MovementSystem", 10);

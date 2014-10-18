@@ -1,13 +1,11 @@
 package com.cathalus.slick.framework.core.entities.components;
 
 import com.cathalus.slick.framework.core.entities.EntityComponent;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-
-import java.awt.*;
 
 /**
  * Created by cathalus on 10.09.14.
@@ -38,7 +36,7 @@ public class RenderComponent extends EntityComponent implements Renderable {
             float maxX = minX+sprite.getWidth();
             float maxY = minY+sprite.getHeight();
 
-            entity.setAABB(new AABB(minX,minY,maxX,maxY));
+            entity.setAABB(new BoundingBox(minX,minY,maxX,maxY));
         }
     }
 

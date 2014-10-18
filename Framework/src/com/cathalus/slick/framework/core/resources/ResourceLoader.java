@@ -66,6 +66,7 @@ public class ResourceLoader {
         String file = element.getAttribute("file");
 
         TiledMap tiledMap = new TiledMap(baseDir + file);
+
         ResourceManager.addTiledMap(key, tiledMap);
     }
 

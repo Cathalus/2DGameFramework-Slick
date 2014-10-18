@@ -1,7 +1,7 @@
 import com.cathalus.slick.framework.core.entities.Entity;
 import com.cathalus.slick.framework.core.entities.components.MovementComponent;
 import com.cathalus.slick.framework.core.entities.components.RenderComponent;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import com.cathalus.slick.framework.core.math.QuadTree;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
@@ -29,7 +29,7 @@ public class SimpleSlickGame extends BasicGame {
     Entity enemy;
     Entity temp;
 
-    private QuadTree scene = new QuadTree(new AABB(0,-600,800,0),2);
+    private QuadTree scene = new QuadTree(new BoundingBox(0,-600,800,0),2);
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
@@ -49,7 +49,7 @@ public class SimpleSlickGame extends BasicGame {
             e.printStackTrace();
         }
 
-        player = new Entity(new AABB(0,-50,50,0));
+        player = new Entity(new BoundingBox(0,-50,50,0));
         player.addComponent(new RenderComponent(wizard));
         player.addComponent(new MovementComponent(100));
 
@@ -68,7 +68,7 @@ public class SimpleSlickGame extends BasicGame {
 
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
-        Set<Entity> entities = scene.queryRange(new AABB(0,-600, 800, 0), new HashSet<Entity>());
+        Set<Entity> entities = scene.queryRange(new BoundingBox(0,-600, 800, 0), new HashSet<Entity>());
 
         Iterator<Entity> it = entities.iterator();
         while (it.hasNext()) {
@@ -86,7 +86,7 @@ public class SimpleSlickGame extends BasicGame {
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        Set<Entity> entities = scene.queryRange(new AABB(0,-600, 800, 0), new HashSet<Entity>());
+        Set<Entity> entities = scene.queryRange(new BoundingBox(0,-600, 800, 0), new HashSet<Entity>());
 
         Iterator<Entity> it = entities.iterator();
         while (it.hasNext()) {

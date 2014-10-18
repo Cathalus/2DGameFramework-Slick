@@ -1,14 +1,12 @@
 package com.cathalus.slick.framework.core.entities;
 
 import com.cathalus.slick.framework.core.entities.components.Renderable;
-import com.cathalus.slick.framework.core.math.AABB;
+import com.cathalus.slick.framework.core.math.BoundingBox;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.Log;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class Entity {
 
@@ -16,18 +14,18 @@ public class Entity {
 
     private float x, y;
     private float dX = 0.0f, dY = 0.0f;
-    private AABB aabb;
+    private BoundingBox boundingBox;
 
     /**
-     * Default constructor. Takes in an AABB and initializes variables
-     * @param aabb AABB
+     * Default constructor. Takes in an BoundingBox and initializes variables
+     * @param boundingBox BoundingBox
      */
-    public Entity(AABB aabb)
+    public Entity(BoundingBox boundingBox)
     {
         this.components = new ArrayList<EntityComponent>();
-        this.aabb = aabb;
-        this.x = aabb.getCenterX();
-        this.y = aabb.getCenterY();
+        this.boundingBox = boundingBox;
+        this.x = boundingBox.getCenterX();
+        this.y = boundingBox.getCenterY();
     }
 
     /**
@@ -38,7 +36,7 @@ public class Entity {
      */
     public Entity(Vector2f pos, float width, float height)
     {
-        this(new AABB(pos.getX(), -(pos.getY()+height), pos.getX()+width, -pos.getY()));
+        this(new BoundingBox(pos.getX(), -(pos.getY()+height), pos.getX()+width, -pos.getY()));
     }
 
     /**
@@ -57,16 +55,18 @@ public class Entity {
     }
 
     /**
-     * Adds the positional delta values to the AABB.
+     * Adds the positional delta values to the BoundingBox.
      */
     public void updateAABB()
     {
-        float minX = aabb.getMinX() + dX;
-        float maxX = aabb.getMaxX() + dX;
-        float minY = aabb.getMinY() + dY;
-        float maxY = aabb.getMaxY() + dY;
+        float minX = boundingBox.getMinX() + dX;
+        float maxX = boundingBox.getMaxX() + dX;
+        float minY = boundingBox.getMinY() + dY;
+        float maxY = boundingBox.getMaxY() + dY;
 
-        aabb = new AABB(minX, minY, maxX, maxY);
+        boundingBox = new BoundingBox(minX, minY, maxX, maxY);
+        this.x = boundingBox.getCenterX();
+        this.y = boundingBox.getCenterY();
     }
 
     /**
@@ -106,8 +106,8 @@ public class Entity {
      */
     public void update(GameContainer container, float delta)
     {
-        x = aabb.getCenterX();
-        y = aabb.getCenterY();
+        x = boundingBox.getCenterX();
+        y = boundingBox.getCenterY();
 
         // TODO: let systems update components (later)
         for(EntityComponent component : components)
@@ -145,9 +145,9 @@ public class Entity {
         return y;
     }
 
-    public AABB getAABB() {
-        return aabb;
+    public BoundingBox getAABB() {
+        return boundingBox;
     }
-    public void setAABB(AABB value) { aabb = value; }
+    public void setAABB(BoundingBox value) { boundingBox = value; }
 
 }

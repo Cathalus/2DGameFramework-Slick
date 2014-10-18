@@ -51,7 +51,7 @@ public class Millions extends StateBasedGame {
             container.setDisplayMode(1280,720,false);
             container.setAlwaysRender(true);
             container.setShowFPS(true);
-            container.setTargetFrameRate(60);
+            //container.setTargetFrameRate(60);
             container.setMinimumLogicUpdateInterval(1000 / 60);
             container.start();
         } catch (SlickException e) {

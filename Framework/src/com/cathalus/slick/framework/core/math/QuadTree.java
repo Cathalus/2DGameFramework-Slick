@@ -12,25 +12,25 @@ public class QuadTree {
     private QuadTree nodes[];
     private Entity entities[];
     private int numEntities;
-    private AABB aabb;
+    private BoundingBox boundingBox;
 
-    public QuadTree(AABB aabb, int numChildrenPerNode) {
+    public QuadTree(BoundingBox boundingBox, int numChildrenPerNode) {
         this.nodes = new QuadTree[4];
         this.entities = new Entity[numChildrenPerNode];
         this.numEntities = 0;
-        this.aabb = aabb;
-        //System.out.println("game AABB"+aabb.toString());
+        this.boundingBox = boundingBox;
+        //System.out.println("game BoundingBox"+boundingBox.toString());
     }
 
     private QuadTree(QuadTree other) {
         this.nodes = other.nodes;
         this.entities = other.entities;
         this.numEntities = other.numEntities;
-        this.aabb = other.aabb;
+        this.boundingBox = other.boundingBox;
     }
 
     public void add(Entity entity) {
-        if (entity.getAABB().intersectsAABB(this.aabb)) {
+        if (entity.getAABB().intersectsBB(this.boundingBox)) {
             if (numEntities < entities.length) {
                 entities[numEntities] = entity;
                 numEntities++;
@@ -40,13 +40,13 @@ public class QuadTree {
         } else {
             QuadTree thisAsNode = new QuadTree(this);
 
-            float dirX = entity.getX() - this.aabb.getCenter().getX();
-            float dirY = entity.getY() - this.aabb.getCenter().getY();
+            float dirX = entity.getX() - this.boundingBox.getCenter().getX();
+            float dirY = entity.getY() - this.boundingBox.getCenter().getY();
 
-            float minX = this.aabb.getMinX();
-            float minY = this.aabb.getMinY();
-            float maxX = this.aabb.getMaxX();
-            float maxY = this.aabb.getMaxY();
+            float minX = this.boundingBox.getMinX();
+            float minY = this.boundingBox.getMinY();
+            float maxX = this.boundingBox.getMaxX();
+            float maxY = this.boundingBox.getMaxY();
 
             float expanseX = maxX - minX;
             float expanseY = maxY - minY;
@@ -57,21 +57,21 @@ public class QuadTree {
 
             if (dirX <= 0 && dirY <= 0) {
                 nodes[1] = thisAsNode;
-                this.aabb = new AABB(minX - expanseX,
+                this.boundingBox = new BoundingBox(minX - expanseX,
                         minY - expanseY, maxX, maxY);
             } else if (dirX <= 0 && dirY > 0) {
                 nodes[3] = thisAsNode;
-                this.aabb = new AABB(minX - expanseX, minY, maxX,
+                this.boundingBox = new BoundingBox(minX - expanseX, minY, maxX,
                         maxY + expanseY);
 
             } else if (dirX > 0 && dirY > 0) {
                 nodes[2] = thisAsNode;
-                this.aabb = new AABB(minX, minY, maxX + expanseX,
+                this.boundingBox = new BoundingBox(minX, minY, maxX + expanseX,
                         maxY + expanseY);
 
             } else if (dirX > 0 && dirY <= 0) {
                 nodes[0] = thisAsNode;
-                this.aabb = new AABB(minX, minY - expanseY, maxX
+                this.boundingBox = new BoundingBox(minX, minY - expanseY, maxX
                         + expanseX, maxY);
             } else {
                 throw new AssertionError(
@@ -85,7 +85,7 @@ public class QuadTree {
     }
 
     public boolean remove(Entity entity) {
-        if (!entity.getAABB().intersectsAABB(aabb)) {
+        if (!entity.getAABB().intersectsBB(boundingBox)) {
             return false;
         }
 
@@ -123,23 +123,23 @@ public class QuadTree {
     }
 
     public Set<Entity> getAll(Set<Entity> result) {
-        return queryRange(aabb, result);
+        return queryRange(boundingBox, result);
     }
 
-    public Set<Entity> queryRange(AABB aabb, Set<Entity> result) {
-        if (!aabb.intersectsAABB(this.aabb)) {
+    public Set<Entity> queryRange(BoundingBox boundingBox, Set<Entity> result) {
+        if (!boundingBox.intersectsBB(this.boundingBox)) {
             return result;
         }
 
         for (int i = 0; i < numEntities; i++) {
-            if (entities[i].getAABB().intersectsAABB(aabb)) {
+            if (entities[i].getAABB().intersectsBB(boundingBox)) {
                 result.add(entities[i]);
             }
         }
 
         for (int i = 0; i < nodes.length; i++) {
             if (nodes[i] != null) {
-                nodes[i].queryRange(aabb, result);
+                nodes[i].queryRange(boundingBox, result);
             }
         }
 
@@ -149,7 +149,7 @@ public class QuadTree {
     private void tryToAddToChildNode(Entity entity, float minX, float minY, float maxX, float maxY, int nodeIndex) {
         if (entity.getAABB().intersectsRectangle(minX, minY, maxX, maxY)) {
             if (nodes[nodeIndex] == null) {
-                nodes[nodeIndex] = new QuadTree(new AABB(minX,
+                nodes[nodeIndex] = new QuadTree(new BoundingBox(minX,
                         minY, maxX, maxY), entities.length);
             }
 
@@ -158,10 +158,10 @@ public class QuadTree {
     }
 
     private void addToChild(Entity entity) {
-        float minX = aabb.getMinX();
-        float minY = aabb.getMinY();
-        float maxX = aabb.getMaxX();
-        float maxY = aabb.getMaxY();
+        float minX = boundingBox.getMinX();
+        float minY = boundingBox.getMinY();
+        float maxX = boundingBox.getMaxX();
+        float maxY = boundingBox.getMaxY();
 
         float halfXLength = (maxX - minX) / 2.0f;
         float halfYLength = (maxY - minY) / 2.0f;

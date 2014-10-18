@@ -10,6 +10,8 @@ public class AIComponent extends EntityComponent {
 
     public static final String NAME = "AIComponent";
 
+    private float timeAlive = 0.0f;
+
     public AIComponent()
     {
         this.identifier = NAME;
@@ -17,11 +19,15 @@ public class AIComponent extends EntityComponent {
 
     @Override
     public void update(GameContainer container, float delta) {
-
+        timeAlive += delta;
     }
 
     @Override
     public void onAdd() {
 
+    }
+
+    public float getTimeAlive() {
+        return timeAlive;
     }
 }

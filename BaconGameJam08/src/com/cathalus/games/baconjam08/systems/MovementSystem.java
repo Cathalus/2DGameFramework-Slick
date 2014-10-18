@@ -21,13 +21,13 @@ import java.util.Set;
  */
 public class MovementSystem extends GameSystem {
 
-
     public MovementSystem(Scene scene, String identifier, int priority) {
         super(scene, identifier,priority);
     }
 
     @Override
     public void update(GameContainer container, HashSet<Entity> range, float delta) {
+
         Iterator<Entity> it = range.iterator();
         while (it.hasNext()) {
             Entity current = it.next();
@@ -36,9 +36,9 @@ public class MovementSystem extends GameSystem {
                 scene.removeEntity(current);
                 MovementComponent movementComponent = (MovementComponent) current.getComponent(MovementComponent.NAME);
 
-                // Human controlled entity
                 if(current.hasComponent(InputComponent.NAME))
                 {
+                    // Human controlled entity
                     InputComponent inputComponent = (InputComponent) current.getComponent(InputComponent.NAME);
                     // Input Handling
                     if(inputComponent.getInputMethod().equals(InputComponent.InputMethod.CONTROLLER))
@@ -59,10 +59,14 @@ public class MovementSystem extends GameSystem {
                         movementComponent.setDeltaMovement(new Vector2f(inputComponent.isKeyPressed(Keyboard.KEY_A) ? -1 : inputComponent.isKeyPressed(Keyboard.KEY_D) ? 1 : 0,
                                                                         inputComponent.isKeyPressed(Keyboard.KEY_W) ? 1  : inputComponent.isKeyPressed(Keyboard.KEY_S) ? -1 : 0));
                     }
+                    movementComponent.update(container,delta);
                 }
-
-                movementComponent.update(container,delta);
                 Vector2f deltaMovement = movementComponent.getDeltaMovement();
+                if(!current.hasComponent(InputComponent.NAME))
+                {
+
+                    System.out.println(deltaMovement);
+                }
 
                 if(movementComponent.handlesCollision())
                     handleWorldCollisions(current, deltaMovement);
@@ -86,7 +90,7 @@ public class MovementSystem extends GameSystem {
         // Resolve y collision
         entities = scene.getTree().queryRange(current.getAABB().expandY(deltaMovement.getY()), new HashSet<Entity>());
         Iterator it = entities.iterator();
-        if (it.hasNext()) {
+        while (it.hasNext()) {
             Entity other = (Entity) it.next();
             if (other.hasComponent(PhysicsComponent.NAME)) {
                 if (((PhysicsComponent) other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {
@@ -104,7 +108,7 @@ public class MovementSystem extends GameSystem {
         entities = scene.getTree().queryRange(current.getAABB().expandX(deltaMovement.getX()), new HashSet<Entity>());
         it = entities.iterator();
         // Collision on X
-        if (it.hasNext()) {
+        while (it.hasNext()) {
             Entity other = (Entity) it.next();
             if (other.hasComponent(PhysicsComponent.NAME)) {
                 if (((PhysicsComponent) other.getComponent(PhysicsComponent.NAME)).getType() == PhysicsComponent.Type.STATIC) {

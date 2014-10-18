@@ -16,6 +16,7 @@ public abstract class GameSystem implements Comparable<GameSystem> {
     protected boolean isActive = false;
     protected int priority = 0;
     protected Scene scene;
+    protected int updatesPerSecond = 0;
 
     public GameSystem(Scene scene, String identifier, int priority){ this.identifier = identifier; this.scene = scene; this.priority = priority; }
     public abstract void update(GameContainer container, HashSet<Entity> range, float delta);
@@ -32,6 +33,15 @@ public abstract class GameSystem implements Comparable<GameSystem> {
     }
     public int compareTo(GameSystem o) {
         return o.getPriority() > priority ? 1 : o.getPriority() == priority ? 0 : -1;
+    }
+
+    public void setUpdatesPerSecond(int updatesPerSecond) {
+        this.updatesPerSecond = updatesPerSecond;
+    }
+
+    public int getUpdatesPerSecond()
+    {
+        return updatesPerSecond;
     }
 
 }
