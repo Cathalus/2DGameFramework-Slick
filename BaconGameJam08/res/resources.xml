@@ -1,4 +1,5 @@
 <resources>
     <basedir path="./BaconGameJam08/res/" />
     <tiledmap key="level02" file="levels/test.tmx"/>
+    <image key="crosshair" file="gfx/crosshair.png"/>
 </resources>

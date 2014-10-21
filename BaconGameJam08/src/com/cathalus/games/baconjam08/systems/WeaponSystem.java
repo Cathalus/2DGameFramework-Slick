@@ -6,6 +6,9 @@ import com.cathalus.slick.framework.core.entities.Entity;
 import com.cathalus.slick.framework.core.entities.systems.GameSystem;
 import com.cathalus.slick.framework.core.input.XBOX360;
 import com.cathalus.slick.framework.core.resources.ResourceManager;
+import net.java.games.input.Component;
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -23,6 +26,7 @@ public class WeaponSystem extends GameSystem {
     }
 
     boolean shooting = false;
+    private Vector2f mouseDelta = new Vector2f();
 
     @Override
     public void update(GameContainer container, HashSet<Entity> range, float delta) {
@@ -35,31 +39,12 @@ public class WeaponSystem extends GameSystem {
                 // is Player
                 if(current.hasComponent(InputComponent.NAME))
                 {
-                    shooting = false;
                     InputComponent inputComponent = (InputComponent) current.getComponent(InputComponent.NAME);
-                    if(inputComponent.isButtonDown(XBOX360.Buttons.LB.getID()))
+                    mouseDelta = new Vector2f(current.getAABB().getCenterX()-Mouse.getX(),current.getAABB().getCenterY()-Mouse.getY());
+                    if(inputComponent.isButtonDown(0))
                     {
-                        if(!weaponComponent.isOnCooldown())
-                        {
-                            shooting = true;
-                            Vector2f direction = new Vector2f(inputComponent.getValue(XBOX360.Axis.THUMB_RIGHT_X.getID()),
-                                                              -inputComponent.getValue(XBOX360.Axis.THUMB_RIGHT_Y.getID()));
-                            fire(current, direction, weaponComponent);
-
-                            // Effects
-                            inputComponent.rumble(5f);
-                            ResourceManager.getSound(weaponComponent.getCurrentWeapon().getSfx()).play();
-                            if(current.hasComponent(MovementComponent.NAME))
-                            {
-                                MovementComponent component = (MovementComponent) current.getComponent(MovementComponent.NAME);
-
-                            }
-                        }
-                    }
-
-                    if(!shooting)
-                    {
-                        inputComponent.rumble(0f);
+                        // TODO: get direction
+                        fire(current, mouseDelta, weaponComponent);
                     }
                 }
 
@@ -69,20 +54,16 @@ public class WeaponSystem extends GameSystem {
     }
 
     private void fire(Entity current, Vector2f direction, WeaponComponent weaponComponent) {
-        // TODO
-        /*
-        weaponComponent.fire();
-        if(direction.equals(new Vector2f()))
-        {
-            direction = new Vector2f(-1, 1);
-        }
         direction.normalise();
-        Vector2f position = new Vector2f(direction.getX(),direction.getY());
-        position.scale(Math.max(current.getAABB().getWidth(), current.getAABB().getHeight()));
-        position.add(current.getAABB().getCenter());
-        position.set(position.getX(), (position.getY() * -1));
-        Entity bullet = new Entity(position,10,10).addComponent(new AABBRenderComponent()).addComponent(new ProjectileComponent(weaponComponent.getCurrentWeapon()));
-        scene.addEntity(bullet);*/
+        Vector2f position = new Vector2f(current.getAABB().getCenterX(), -current.getAABB().getCenterY());
+        position.add(direction);
+        Entity bullet = new Entity(position,3,3).addComponent(new AABBRenderComponent()).addComponent(new ProjectileComponent(weaponComponent.getCurrentWeapon()));
+        MovementComponent movementComponent = new MovementComponent(weaponComponent.getCurrentWeapon().getVelocity(), (int) weaponComponent.getCurrentWeapon().getVelocity(), false);
+
+        System.out.println(direction);
+        movementComponent.setDeltaMovement(direction);
+        bullet.addComponent(movementComponent);
+        scene.addEntity(bullet);
     }
 
 

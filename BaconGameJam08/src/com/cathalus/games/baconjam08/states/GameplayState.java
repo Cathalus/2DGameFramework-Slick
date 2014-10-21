@@ -11,6 +11,7 @@ import com.cathalus.games.baconjam08.util.State;
 import com.cathalus.slick.framework.core.entities.Entity;
 import com.cathalus.slick.framework.core.math.BoundingBox;
 import com.cathalus.slick.framework.core.math.QuadTree;
+import com.cathalus.slick.framework.core.resources.ResourceManager;
 import com.cathalus.slick.framework.core.states.SceneBasedState;
 
 import org.newdawn.slick.*;
@@ -64,6 +65,8 @@ public class GameplayState extends SceneBasedState {
         }
 
         spawnEntities();
+
+        gameContainer.setMouseCursor(ResourceManager.getImage("crosshair"),1,1);
 
         scenes.put("Gameplay", new GameplayScene(this,quadTree,gameContainer.getWidth(),gameContainer.getHeight()));
         transitionTo("Gameplay");

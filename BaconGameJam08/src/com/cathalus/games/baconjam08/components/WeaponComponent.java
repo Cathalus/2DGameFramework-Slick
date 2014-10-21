@@ -1,6 +1,6 @@
 package com.cathalus.games.baconjam08.components;
 
-import com.cathalus.games.survive.entities.weapons.Weapon;
+import com.cathalus.games.baconjam08.weapons.Weapon;
 import com.cathalus.slick.framework.core.entities.EntityComponent;
 import org.newdawn.slick.GameContainer;
 

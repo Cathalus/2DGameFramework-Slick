@@ -7,13 +7,15 @@ public abstract class Weapon {
 
     protected float damage;
     protected float cooldown;
+    protected float velocity;
     protected String sfx;
 
-    public Weapon(float damage, float cooldown, String sfx)
+    public Weapon(float damage, float cooldown, float velocity, String sfx)
     {
         this.damage = damage;
         this.cooldown = cooldown;
         this.sfx = sfx;
+        this.velocity = velocity;
     }
 
     public float getDamage()
@@ -23,5 +25,8 @@ public abstract class Weapon {
     public float getCooldown() { return cooldown; }
     public String getSfx() {
         return sfx;
+    }
+    public float getVelocity() {
+        return velocity;
     }
 }

@@ -26,6 +26,7 @@ public class GameplayScene extends Scene {
     private SpawningSystem spawningSystem;
     private AISystem aiSystem;
     private CameraSystem cameraSystem;
+    private WeaponSystem weaponSystem;
     private int width, height;
 
     public GameplayScene(SceneBasedState state, QuadTree tree, int windowWidth, int windowHeight) {
@@ -37,15 +38,15 @@ public class GameplayScene extends Scene {
     @Override
     public void init() {
         camera = new Camera2D(new BoundingBox(0,-height,width,0));
-        System.out.println(camera.getAABB());
         camera.addComponent(new CameraComponent());
 
         systemManager = new GameSystemManager();
 
         // Initialize Systems
-        spawningSystem = new SpawningSystem(this, "SpawningSystem", 5);
         aiSystem = new AISystem(this, "AISystem", 11);
         movementSystem = new MovementSystem(this,"MovementSystem",10);
+        weaponSystem = new WeaponSystem(this, "WeaponSystem",8);
+        spawningSystem = new SpawningSystem(this, "SpawningSystem", 5);
         cameraSystem = new CameraSystem(this, "CameraSystem",1);
         renderingSystem = new RenderingSystem(this,"RenderingSystem",0);
 
@@ -57,6 +58,7 @@ public class GameplayScene extends Scene {
         systemManager.addGameSystem(movementSystem);
         systemManager.addGameSystem(renderingSystem);
         systemManager.addGameSystem(cameraSystem);
+        systemManager.addGameSystem(weaponSystem);
     }
 
     @Override

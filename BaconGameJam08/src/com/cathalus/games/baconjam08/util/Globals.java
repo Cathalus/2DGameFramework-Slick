@@ -30,5 +30,6 @@ public class Globals {
 
     public static Level CURRENT_LEVEL = null;
     public static Player CURRENT_PLAYER = null;
-    public static Difficulty CURRENT_DIFFICULTY = Difficulty.HARD;
+    public static Difficulty CURRENT_DIFFICULTY = Difficulty.NORMAL;
+    public static final int PROJECTILE_TTL = 4;
 }

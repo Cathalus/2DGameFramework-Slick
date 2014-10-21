@@ -1,7 +1,7 @@
 package com.cathalus.games.baconjam08.components;
 
-import com.cathalus.games.survive.entities.weapons.Weapon;
-import com.cathalus.games.survive.util.Settings;
+import com.cathalus.games.baconjam08.util.Globals;
+import com.cathalus.games.baconjam08.weapons.Weapon;
 import com.cathalus.slick.framework.core.entities.EntityComponent;
 import org.newdawn.slick.GameContainer;
 
@@ -14,7 +14,7 @@ public class ProjectileComponent extends EntityComponent {
 
     private float damage;
     private boolean hit = false;
-    private float ttl = Settings.PROJECTILE_TTL;
+    private float ttl = Globals.PROJECTILE_TTL;
 
     public ProjectileComponent(Weapon w)
     {
