@@ -62,10 +62,6 @@ public class MovementSystem extends GameSystem {
                     movementComponent.update(container,delta);
                 }
                 Vector2f deltaMovement = movementComponent.getDeltaMovement();
-                /*if(!current.hasComponent(InputComponent.NAME))
-                {
-
-                }*/
 
                 if(movementComponent.handlesCollision())
                     handleWorldCollisions(current, deltaMovement);

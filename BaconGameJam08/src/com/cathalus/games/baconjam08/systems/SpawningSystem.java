@@ -40,20 +40,22 @@ public class SpawningSystem extends GameSystem {
                 spawnComponent.update(container,delta);
                 if(!spawnComponent.onCooldown())
                 {
-                    for(int i = 0; i < 7; i++) {
-                        // Spawn enemies
-                        Random rand = new Random();
-                        Entity enemy = new Entity(new Vector2f(current.getX(), -current.getY()), 5, 5);
-                        float angle = (float) (rand.nextFloat() * (Math.PI * 2));
-                        MovementComponent movementComponent = new MovementComponent(5, 100, true);
-                        movementComponent.setDeltaMovement(new Vector2f((float) Math.cos(angle), (float) Math.sin(angle)));
-                        AABBRenderComponent renderComponent = new AABBRenderComponent();
-                        renderComponent.setColor(Color.green);
-                        enemy.addComponent(movementComponent);
-                        enemy.addComponent(renderComponent);
-                        enemy.addComponent(new AIComponent());
-                        scene.addEntity(enemy);
-                        enemies++;
+                    if(enemies <= 100) {
+                        for (int i = 0; i < 7; i++) {
+                            // Spawn enemies
+                            Random rand = new Random();
+                            Entity enemy = new Entity(new Vector2f(current.getX(), -current.getY()), 5, 5);
+                            float angle = (float) (rand.nextFloat() * (Math.PI * 2));
+                            MovementComponent movementComponent = new MovementComponent(5, 100, true);
+                            movementComponent.setDeltaMovement(new Vector2f((float) Math.cos(angle), (float) Math.sin(angle)));
+                            AABBRenderComponent renderComponent = new AABBRenderComponent();
+                            renderComponent.setColor(Color.green);
+                            enemy.addComponent(movementComponent);
+                            enemy.addComponent(renderComponent);
+                            enemy.addComponent(new AIComponent());
+                            scene.addEntity(enemy);
+                            enemies++;
+                        }
                     }
                 }
             }

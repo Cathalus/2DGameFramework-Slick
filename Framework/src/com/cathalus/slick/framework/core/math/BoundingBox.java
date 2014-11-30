@@ -18,6 +18,16 @@ public class BoundingBox {
         this.maxY = maxY;
     }
 
+    public boolean contains(float x, float y)
+    {
+        System.out.println("minX ("+this.minX+") < x ("+x+") = "+(minX<x));
+        System.out.println("minY ("+this.minY+") < y ("+y+") = "+(minY<y));
+        System.out.println("maxX ("+this.maxX+") > x ("+x+") = "+(maxX>x));
+        System.out.println("maxY ("+this.maxY+") > y ("+y+") = "+(maxY>x));
+        System.out.println();
+        return this.minX < x && this.maxX > x && this.minY < y && this.maxY > y;
+    }
+
     public boolean intersectsBB(BoundingBox other)
     {
         return intersectsRectangle(other.getMinX(),other.getMinY(),other.getMaxX(),other.getMaxY());

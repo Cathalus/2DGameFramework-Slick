@@ -1,0 +1,8 @@
+<resources>
+    <basedir path="./MathGame/res/" />
+    <!-- sound        key     file-->
+    <sound key="cheer" file="sfx/cheer.ogg"/>
+    <sound key="buzzer" file="sfx/buzzer.ogg"/>
+    <image key="board" file="gfx/chalkboard.png"/>
+    <unicodefont  key="eraser" file="fonts/EraserDust.ttf" fontSize="120"/>
+</resources>

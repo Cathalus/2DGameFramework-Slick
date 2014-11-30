@@ -1,14 +1,18 @@
 package com.cathalus.slick.framework.core.resources;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import sun.security.tools.keytool.Resources_es;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.StringTokenizer;
@@ -126,7 +130,21 @@ public class ResourceLoader {
     }
 
     private void loadUnicodeFont(Element element) {
+        Log.debug("LOADING UNICODE FONT");
+        checkRequiredAttributes(element, "key", "file", "fontSize");
+        String key = element.getAttribute("key");
+        String file = element.getAttribute("file");
+        String fontSize = element.getAttribute("fontSize");
 
+        try {
+            UnicodeFont font = new UnicodeFont(baseDir+file,Integer.parseInt(fontSize),false,false);
+            font.addAsciiGlyphs();
+            font.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
+            font.loadGlyphs();
+            ResourceManager.addFont(key,font);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadSpriteSheet(Element element) throws SlickException {
